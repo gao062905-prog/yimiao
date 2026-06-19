@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>九价守护计划：宫颈癌预防科普大冒险</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ==================== 科普免责声明横幅 ==================== -->
+<div id="disclaimer-banner" class="disclaimer-banner">
+  <span class="disclaimer-icon">ℹ️</span>
+  <span class="disclaimer-text">本作品仅用于健康科普学习，不提供诊断、治疗或个人接种建议。</span>
+  <button id="disclaimer-close" class="disclaimer-close" aria-label="关闭">×</button>
+  <button id="disclaimer-more" class="disclaimer-more">详细说明</button>
+</div>
+
+<!-- ==================== 主应用容器 ==================== -->
+<div id="app">
+
+  <!-- ========== 屏幕 0：开场首页 ========== -->
+  <section id="screen-home" class="screen active">
+    <div class="home-bg">
+      <div class="home-particles" id="home-particles"></div>
+      <div class="home-shield" id="home-shield"></div>
+    </div>
+    <div class="home-content">
+      <div class="home-badge-icon">🛡️</div>
+      <h1 class="home-title">九价守护计划</h1>
+      <p class="home-subtitle">宫颈癌预防科普大冒险</p>
+      <p class="home-desc">用互动游戏了解 HPV、九价疫苗与宫颈癌预防</p>
+      <div class="home-buttons">
+        <button class="btn btn-primary btn-large" id="btn-start-game">
+          <span class="btn-icon">🎮</span> 开始游戏
+        </button>
+        <button class="btn btn-secondary" id="btn-demo-mode">
+          <span class="btn-icon">🎬</span> 演示模式
+        </button>
+        <button class="btn btn-outline" id="btn-knowledge">
+          <span class="btn-icon">📚</span> 知识资料
+        </button>
+        <button class="btn btn-outline" id="btn-reference">
+          <span class="btn-icon">📖</span> 参考来源
+        </button>
+      </div>
+    </div>
+    <div class="home-footer">
+      <p class="disclaimer-small">本作品仅用于科普学习，不替代医生、疾控机构或接种门诊建议。</p>
+    </div>
+  </section>
+
+  <!-- ========== 屏幕 1：任务一 —— 认识 HPV 病毒 ========== -->
+  <section id="screen-mission1" class="screen">
+    <div class="mission-header">
+      <button class="btn-back" data-goto="home">← 返回</button>
+      <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+      <span class="mission-num">任务 1/6</span>
+    </div>
+    <div class="mission-body">
+      <h2 class="mission-title">🔬 任务一：认识 HPV 病毒</h2>
+      <p class="mission-brief">请从下方卡片中，点击所有与 <strong>HPV（人乳头瘤病毒）</strong> 相关的正确卡片。</p>
+      <div class="mission-hint">💡 提示：HPV 是一种病毒，不是细菌或过敏原。</div>
+      <div class="cards-grid" id="mission1-cards"></div>
+      <div class="mission-feedback" id="mission1-feedback"></div>
+      <div class="mission-score">✅ 正确：<span id="m1-correct">0</span>/3 &nbsp; ❌ 错误：<span id="m1-wrong">0</span>/3</div>
+    </div>
+    <div class="mission-footer">
+      <button class="btn btn-primary" id="btn-mission1-complete" disabled>完成任务 · 获得 HPV 识别徽章</button>
+    </div>
+  </section>
+
+  <!-- ========== 屏幕 2：任务二 —— 高危型与低危型分拣站 ========== -->
+  <section id="screen-mission2" class="screen">
+    <div class="mission-header">
+      <button class="btn-back" data-goto="home">← 返回</button>
+      <div class="progress-bar"><div class="progress-fill" style="width:16%"></div></div>
+      <span class="mission-num">任务 2/6</span>
+    </div>
+    <div class="mission-body">
+      <h2 class="mission-title">🧬 任务二：高危型与低危型分拣站</h2>
+      <p class="mission-brief">九价 HPV 疫苗覆盖 9 种 HPV 型别。请将它们拖拽或点击分类到对应区域：</p>
+      <div class="sorting-area">
+        <div class="sort-zone sort-low" id="zone-low">
+          <div class="zone-label">🟢 低危相关型别<br><small>（如 HPV 6、11——常与生殖器疣相关）</small></div>
+          <div class="zone-drop" id="zone-low-drop"></div>
+        </div>
+        <div class="sort-zone sort-high" id="zone-high">
+          <div class="zone-label">🔴 高危相关型别<br><small>（如 HPV 16、18——与宫颈癌风险关系密切）</small></div>
+          <div class="zone-drop" id="zone-high-drop"></div>
+        </div>
+      </div>
+      <div class="hpv-types-pool" id="hpv-types-pool"></div>
+      <div class="mission-feedback" id="mission2-feedback"></div>
+    </div>
+    <div class="mission-footer">
+      <button class="btn btn-primary" id="btn-mission2-complete" disabled>完成任务 · 点亮九价覆盖图谱</button>
+    </div>
+  </section>
+
+  <!-- ========== 屏幕 3：任务三 —— 九价疫苗训练免疫系统 ========== -->
+  <section id="screen-mission3" class="screen">
+    <div class="mission-header">
+      <button class="btn-back" data-goto="home">← 返回</button>
+      <div class="progress-bar"><div class="progress-fill" style="width:33%"></div></div>
+      <span class="mission-num">任务 3/6</span>
+    </div>
+    <div class="mission-body">
+      <h2 class="mission-title">🏋️ 任务三：免疫训练营</h2>
+      <p class="mission-brief">HPV 疫苗通过呈现与病毒相关的特征（病毒样颗粒 VLP），帮助免疫系统提前建立识别能力。</p>
+      <div class="immune-game">
+        <div class="immune-timer" id="immune-timer">⏱ 剩余时间：<span id="timer-count">30</span> 秒</div>
+        <div class="immune-area">
+          <div class="antigen-clues" id="antigen-clues"></div>
+          <div class="immune-cells" id="immune-cells"></div>
+        </div>
+        <div class="immune-score">已匹配：<span id="match-count">0</span>/4</div>
+      </div>
+      <div class="mission-feedback" id="mission3-feedback"></div>
+      <div class="knowledge-card compact">
+        <p>💡 HPV 疫苗<strong>不含活病毒</strong>，不能导致 HPV 感染。疫苗主要用于<strong>预防</strong>，不用于治疗已发生的 HPV 感染或宫颈癌。</p>
+      </div>
+    </div>
+    <div class="mission-footer">
+      <button class="btn btn-primary" id="btn-mission3-complete" disabled>完成任务 · 获得免疫记忆徽章</button>
+    </div>
+  </section>
+
+  <!-- ========== 屏幕 4：任务四 —— 接种流程模拟器 ========== -->
+  <section id="screen-mission4" class="screen">
+    <div class="mission-header">
+      <button class="btn-back" data-goto="home">← 返回</button>
+      <div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div>
+      <span class="mission-num">任务 4/6</span>
+    </div>
+    <div class="mission-body">
+      <h2 class="mission-title">🏥 任务四：接种流程模拟器</h2>
+      <p class="mission-brief">请将以下接种相关流程卡片按正确顺序排列（点击卡片选择下一步）：</p>
+      <p class="mission-note">⚠️ 此为示意流程。接种年龄、剂次、间隔、禁忌证应以<strong>当地批准说明书和接种门诊建议为准</strong>。</p>
+      <div class="steps-sequence" id="steps-sequence"></div>
+      <div class="steps-pool" id="steps-pool"></div>
+      <div class="mission-feedback" id="mission4-feedback"></div>
+    </div>
+    <div class="mission-footer">
+      <button class="btn btn-primary" id="btn-mission4-complete" disabled>完成任务 · 获得规范接种徽章</button>
+    </div>
+  </section>
+
+  <!-- ========== 屏幕 5：任务五 —— 疫苗不是筛查替代品 ========== -->
+  <section id="screen-mission5" class="screen">
+    <div class="mission-header">
+      <button class="btn-back" data-goto="home">← 返回</button>
+      <div class="progress-bar"><div class="progress-fill" style="width:66%"></div></div>
+      <span class="mission-num">任务 5/6</span>
+    </div>
+    <div class="mission-body">
+      <h2 class="mission-title">🛡️ 任务五：双重防线守护盾</h2>
+      <p class="mission-brief">宫颈癌预防需要两道防线协同守护。请同时点亮两道防线，形成完整保护。</p>
+      <div class="shield-simulator">
+        <div class="shield-left" id="shield-left">
+          <div class="shield-icon">💉</div>
+          <div class="shield-name">HPV 疫苗预防防线</div>
+          <button class="btn btn-shield" id="btn-shield-vaccine">点亮疫苗防线</button>
+          <div class="shield-status" id="shield-vaccine-status">未激活</div>
+        </div>
+        <div class="shield-center">
+          <div class="combined-shield" id="combined-shield">🛡️</div>
+          <div class="shield-msg" id="shield-msg">请点亮两道防线</div>
+        </div>
+        <div class="shield-right" id="shield-right">
+          <div class="shield-icon">🔬</div>
+          <div class="shield-name">宫颈癌筛查防线</div>
+          <button class="btn btn-shield" id="btn-shield-screen">点亮筛查防线</button>
+          <div class="shield-status" id="shield-screen-status">未激活</div>
+        </div>
+      </div>
+      <div class="knowledge-card" id="shield-knowledge"></div>
+      <div class="mission-feedback" id="mission5-feedback"></div>
+    </div>
+    <div class="mission-footer">
+      <button class="btn btn-primary" id="btn-mission5-complete" disabled>完成任务 · 获得双重防线徽章</button>
+    </div>
+  </section>
+
+  <!-- ========== 屏幕 6：任务六 —— 谣言粉碎机 ========== -->
+  <section id="screen-mission6" class="screen">
+    <div class="mission-header">
+      <button class="btn-back" data-goto="home">← 返回</button>
+      <div class="progress-bar"><div class="progress-fill" style="width:83%"></div></div>
+      <span class="mission-num">任务 6/6</span>
+    </div>
+    <div class="mission-body">
+      <h2 class="mission-title">💥 任务六：谣言粉碎机</h2>
+      <p class="mission-brief">判断以下说法是否正确，粉碎谣言！</p>
+      <div class="quiz-container" id="quiz-container"></div>
+      <div class="quiz-score">得分：<span id="quiz-points">0</span>/6</div>
+      <div class="mission-feedback" id="mission6-feedback"></div>
+    </div>
+    <div class="mission-footer">
+      <button class="btn btn-primary" id="btn-mission6-complete" disabled>完成任务 · 获得谣言粉碎徽章</button>
+    </div>
+  </section>
+
+  <!-- ========== 屏幕 7：结局页 ========== -->
+  <section id="screen-ending" class="screen">
+    <div class="ending-content">
+      <div class="ending-shield">🛡️✨</div>
+      <h2 class="ending-title">🎉 九价守护计划 · 完成！</h2>
+      <div class="badges-showcase" id="badges-showcase"></div>
+      <div class="ending-score">
+        <div class="score-circle" id="score-circle">0</div>
+        <p>宫颈健康守护指数</p>
+      </div>
+      <div class="ending-title-text" id="ending-title-text"></div>
+      <div class="ending-buttons">
+        <button class="btn btn-primary" id="btn-replay">🔄 再玩一次</button>
+        <button class="btn btn-secondary" id="btn-ending-knowledge">📚 查看知识总结</button>
+        <button class="btn btn-outline" id="btn-ending-reference">📖 参考来源</button>
+        <button class="btn btn-outline" id="btn-ending-demo">🎬 演示模式</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 屏幕 8：知识资料页 ========== -->
+  <section id="screen-knowledge" class="screen">
+    <div class="knowledge-page">
+      <button class="btn-back" data-goto="home">← 返回首页</button>
+      <h2>📚 科普知识资料</h2>
+      <div class="knowledge-list" id="knowledge-list"></div>
+    </div>
+  </section>
+
+  <!-- ========== 屏幕 9：参考来源页 ========== -->
+  <section id="screen-reference" class="screen">
+    <div class="reference-page">
+      <button class="btn-back" data-goto="home">← 返回首页</button>
+      <h2>📖 参考来源</h2>
+      <div class="reference-list" id="reference-list"></div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ==================== 演示模式叠加层 ==================== -->
+<div id="demo-overlay" class="demo-overlay hidden">
+  <div class="demo-header">
+    <span class="demo-label">🎬 演示模式</span>
+    <span class="demo-progress">进度：<span id="demo-progress-text">0/6</span></span>
+    <button class="btn btn-sm btn-outline" id="btn-demo-exit">退出演示</button>
+  </div>
+</div>
+
+<!-- ==================== 徽章获得通知 ==================== -->
+<div id="badge-toast" class="badge-toast hidden">
+  <div class="badge-toast-content">
+    <span class="badge-toast-icon">🏅</span>
+    <div>
+      <div class="badge-toast-title">徽章获得！</div>
+      <div class="badge-toast-name" id="badge-toast-name"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 知识卡片模态框 ==================== -->
+<div id="modal-knowledge" class="modal hidden">
+  <div class="modal-backdrop"></div>
+  <div class="modal-content">
+    <button class="modal-close" id="modal-close">×</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- ==================== 免责声明详细模态框 ==================== -->
+<div id="modal-disclaimer" class="modal hidden">
+  <div class="modal-backdrop"></div>
+  <div class="modal-content modal-disclaimer-content">
+    <button class="modal-close" id="modal-disclaimer-close">×</button>
+    <h3>⚠️ 科普提示与免责声明</h3>
+    <div class="disclaimer-detail">
+      <ol>
+        <li>本作品仅用于<strong>健康科普学习</strong>，不提供诊断、治疗或个人接种建议。</li>
+        <li>九价 HPV 疫苗用于<strong>预防</strong>其覆盖型别相关 HPV 感染及相关疾病风险，<strong>不用于治疗</strong> HPV 感染或宫颈癌。</li>
+        <li>接种 HPV 疫苗<strong>不能替代</strong>宫颈癌筛查。</li>
+        <li>接种年龄、剂次、间隔、禁忌证和注意事项，应以<strong>当地批准说明书、疾控机构、接种门诊和医生建议</strong>为准。</li>
+        <li>如有过敏史、免疫功能异常、孕期、急性疾病、慢性病等情况，应<strong>咨询专业人员</strong>。</li>
+        <li>本作品中的"接种流程"为<strong>示意性流程</strong>，不应被视作个人医疗建议。</li>
+        <li>HPV 感染很常见，科普应<strong>避免污名化</strong>。</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
